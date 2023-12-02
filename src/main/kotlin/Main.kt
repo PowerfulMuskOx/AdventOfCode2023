@@ -1,11 +1,10 @@
 import Dec01.Dec01
+import Dec02.Dec02
 
 fun main(args: Array<String>) {
-    println("Hello World!")
-
     println("First:")
-    println(Dec01.first())
+    println(Dec02.first())
 
     println("\nSecond:")
-    println(Dec01.second())
+    println(Dec02.second())
 }
