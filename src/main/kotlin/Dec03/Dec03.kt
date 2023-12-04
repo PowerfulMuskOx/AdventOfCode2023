@@ -45,7 +45,7 @@ object Dec03 {
                                 isPartNumber = pattern.matcher(stringToCheck).find()
                             }
                             else {
-                                val stringToCheck = it.subSequence(startIndex - 2, endIndex)
+                                val stringToCheck = it.subSequence(startIndex - 1, endIndex + 1)
                                 isPartNumber = pattern.matcher(stringToCheck).find()
                             }
                         } else {
@@ -55,8 +55,8 @@ object Dec03 {
                     }
                 }
 
-                listOfStringsToCheck = updateListOfStringsToCheck(endIndex, listOfStringsToCheck)
-                line = line.substring(endIndex)
+                listOfStringsToCheck = updateListOfStringsToCheck(endIndex + 1, listOfStringsToCheck)
+                line = line.substring(endIndex + 1)
 
                 if(isPartNumber) {
                     partNumbers.add(number.toInt())
@@ -66,6 +66,11 @@ object Dec03 {
         }
 
         return partNumbers.sum().toString()
+    }
+
+    fun second() : String {
+
+        return ""
     }
 
     private fun updateListOfStringsToCheck(endIndex: Int, listOfString: MutableList<String>): MutableList<String> {

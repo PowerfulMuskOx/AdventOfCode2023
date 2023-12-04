@@ -5,8 +5,8 @@ import Dec04.Dec04
 
 fun main(args: Array<String>) {
     println("First:")
-    println(Dec04.first())
+    println(Dec03.first())
 
     println("\nSecond:")
-    println(Dec04.second())
+    println(Dec02.second())
 }
