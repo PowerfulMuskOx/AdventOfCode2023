@@ -8,5 +8,5 @@ fun main(args: Array<String>) {
     println(Dec04.first())
 
     println("\nSecond:")
-    println(Dec02.second())
+    println(Dec04.second())
 }

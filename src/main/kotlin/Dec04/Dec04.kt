@@ -6,6 +6,41 @@ import kotlin.math.pow
 object Dec04 {
 
     fun first(): String {
+        var cards = getCards()
+
+        var totalScore = 0
+        cards.forEach {
+            totalScore += getScore(it)
+        }
+
+        return totalScore.toString()
+    }
+
+    fun second() :String {
+        var cards = getCards()
+        var collectedCards = mutableListOf<Card>()
+        var cardsToPlay = mutableListOf<Card>()
+
+        cardsToPlay.addAll(cards)
+        collectedCards.addAll(cards)
+
+        while (cardsToPlay.isNotEmpty()) {
+            val car = mutableListOf<Card>()
+            car.addAll(cardsToPlay)
+            car.forEach {
+                val matches = getMatches(it)
+                val newCards = getNewCards(cards, it.id, it.id + matches - 1)
+
+                cardsToPlay.addAll(newCards)
+                collectedCards.addAll(newCards)
+                cardsToPlay.removeFirst()
+            }
+        }
+
+        return collectedCards.size.toString()
+    }
+
+    private fun getCards() : List<Card> {
         val input = Dec01::class.java.getResource("/Dec04Input.txt").readText().lines()
         val cards = mutableListOf<Card>()
 
@@ -24,20 +59,15 @@ object Dec04 {
             cards.add(Card(cardId, winningNumbersList, myNumbersList))
         }
 
-        var totalScore = 0
-        cards.forEach {
-            totalScore += getScore(it.winningList, it.myList)
-        }
-
-        return totalScore.toString()
+        return cards
     }
 
-    private fun getScore(winningNumbers: List<String>, myNumbers: List<String>) : Int {
+    private fun getScore(card: Card) : Int {
         var score: Int
         var counter = 0
 
-        myNumbers.forEach {
-            if(winningNumbers.contains(it)) {
+        card.myList.forEach {
+            if(card.winningList.contains(it)) {
                 counter++
             }
         }
@@ -49,6 +79,27 @@ object Dec04 {
             }
         }
         return score
+    }
+
+    private fun getMatches(card: Card) : Int {
+        var counter = 0
+
+        card.myList.forEach {
+            if(card.winningList.contains(it)) {
+                counter++
+            }
+        }
+
+        return counter
+    }
+
+    private fun getNewCards(cards: List<Card>, start: Int, end: Int) : List<Card> {
+        val newCards = mutableListOf<Card>()
+        for (i in start .. end) {
+            newCards.add(cards[i])
+        }
+
+        return newCards
     }
 }
 
